@@ -45,6 +45,8 @@
             node-fail(There was an issue with the node)
         end
 
+        click node-fail href "https://services.northwestern.edu/TDNext/Apps/31/Tickets/TicketDet.aspx?TicketID=27869" "This takes you to a ticket which had this problem so you can see what was done"
+
         subgraph software-installation [User Requesting Help with Software Installation]
             install-with-anaconda(Can this be installed into an anaconda virtual environemnt?)
             gpu-accelerated-python(Are they installing PyTorch or Tensorflow?)
@@ -61,6 +63,7 @@
             abaqus(Abaqus)
         end
 
+        click vasp href "https://services.northwestern.edu/TDNext/Apps/31/Tickets/TicketDet.aspx?TicketID=27861" "This takes you to a ticket which had this problem so you can see what was done"
 
         cannot-login -.- submitting-job-failed
         submitting-job-failed -.- job-failed-after-submit
