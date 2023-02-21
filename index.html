@@ -1,0 +1,90 @@
+<html>
+  <body>
+    <pre class="mermaid">
+        flowchart TD
+
+        subgraph cannot-login [User Cannot Connect to Quest]
+            inactive-netid(User NetID Expired)
+            uppercase-netid(User Attempting to Connect with All Caps NetID)
+            old-fastx-browser-link(User connecting via old FastX browser link)
+        end        
+
+        subgraph submitting-job-failed [User Unable to Submit Job]
+            expired-allocation(General Access Allocation Expired)
+            non-compute-allocation(Allocation Does Not Have Access to Compute)
+            wrong-partition(User is trying to submit to the wrong partition)
+        end
+
+        subgraph common-service-issues [Common Issues with Services]
+            subgraph fastx[FastX3]
+                cannot-launch-gnome(User can connect to FastX but launching GNOME fails)
+            end
+            subgraph analytics-nodes[Quest Analytics Nodes]
+                user-cannot-install-r-package(User cannot install R package on analytics node that they can on Quest log in and compute nodes)
+            end
+            subgraph user-account[User Account of Allocations]
+                affliate-netid(Access to non-NU members or access after graduation -- user needs to get affliate netid)
+                disk-space-full(Users home directory or allocation directory is full)
+
+            end
+        end
+
+        subgraph job-failed-after-submit [User Submitted Job and Then It Failed]
+            oom(User did not request enough memory)
+            node-fail(There was an issue with the node)
+        end
+
+        subgraph software-installation [User Requesting Help with Software Installation]
+            install-with-anaconda(Can this be installed into an anaconda virtual environemnt?)
+            gpu-accelerated-python(Are they installing PyTorch or Tensorflow?)
+            installing-with-containers(Can this be installed as a container?)
+            system-wide-module(Are they installing something that should be installed as a system wide module)
+        end
+
+        subgraph access-to-licensed-software [User Requesting Access to Licensed Software]
+            vasp(VASP)
+            gaussian(Gaussian)
+            lumerical(Lumerical)
+            abaqus(Abaqus)
+        end
+
+
+        cannot-login -.- submitting-job-failed
+        submitting-job-failed -.- job-failed-after-submit
+        job-failed-after-submit -.- common-service-issues
+        common-service-issues -.- software-installation 
+        software-installation -.- access-to-licensed-software
+
+        assign-xiss(XISS Assignment Group)
+        assign-rcds-staff(RCDS Staff)
+
+        system-wide-module-. Assign To .-> assign-xiss
+        access-to-licensed-software-. Assign To .-> assign-rcds-staff
+
+        click old-fastx-browser-link href "https://services.northwestern.edu/TDNext/Apps/31/Tickets/TicketDet?TicketID=26056" "This takes you to a ticket which had this problem so you can see what was done"
+
+
+
+    </pre>
+
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@9/dist/mermaid.esm.min.mjs';
+      var config = {
+                startOnLoad:true,
+                htmlLabels:true,
+                callback:function(id){
+                    console.log(id,' rendered');
+                },
+                flowchart:{
+                        useMaxWidth:false,
+                    }
+      };
+      mermaid.initialize(config);
+    </script>
+    <script>
+      const callback = function () {
+        alert('A callback was triggered');
+      };
+    </script>
+  </body>
+</html>
