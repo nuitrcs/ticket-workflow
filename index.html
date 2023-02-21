@@ -4,10 +4,16 @@
         flowchart TD
 
         subgraph cannot-login [User Cannot Connect to Quest]
-            inactive-netid(User NetID Expired)
+            inactive-netid(User NetID Lapsed or Expired)
             uppercase-netid(User Attempting to Connect with All Caps NetID)
             old-fastx-browser-link(User connecting via old FastX browser link)
+            no-quest-access(User does not have a Quest account)
         end        
+
+        click inactive-netid href "https://services.northwestern.edu/TDNext/Apps/31/Tickets/TicketDet.aspx?TicketID=12241" "Diagnostic:\n finger sbc538"
+        click old-fastx-browser-link href "https://services.northwestern.edu/TDNext/Apps/31/Tickets/TicketDet?TicketID=26056" "This takes you to a ticket which had this problem so you can see what was done"
+        click no-quest-access href "./cannot-login/no-quest-access.html" "This takes you to a ticket which had this problem so you can see what was done"
+        click uppercase-netid href "https://services.northwestern.edu/TDNext/Apps/31/Tickets/TicketDet.aspx?TicketID=23255" "This takes you to a ticket which had this problem so you can see what was done"
 
         subgraph submitting-job-failed [User Unable to Submit Job]
             expired-allocation(General Access Allocation Expired)
@@ -22,12 +28,17 @@
             subgraph analytics-nodes[Quest Analytics Nodes]
                 user-cannot-install-r-package(User cannot install R package on analytics node that they can on Quest log in and compute nodes)
             end
-            subgraph user-account[User Account of Allocations]
-                affliate-netid(Access to non-NU members or access after graduation -- user needs to get affliate netid)
+            subgraph user-account[User Account or Allocations]
+                affliate-netid-non-nu(Quest access for non-NU collaborators)
+                netid-past-graduation(Retain Quest access after graduation)
                 disk-space-full(Users home directory or allocation directory is full)
-
             end
         end
+
+        click netid-past-graduation href "https://services.northwestern.edu/TDNext/Apps/31/Tickets/TicketDet.aspx?TicketID=27429" "This takes you to a ticket which had this problem so you can see what was done"
+        click affliate-netid-non-nu href "https://services.northwestern.edu/TDNext/Apps/31/Tickets/TicketDet.aspx?TicketID=27429" "This takes you to a ticket which had this problem so you can see what was done"
+        click wrong-partition href "https://services.northwestern.edu/TDNext/Apps/31/Tickets/TicketDet.aspx?TicketID=27196" "This takes you to a ticket which had this problem so you can see what was done"
+
 
         subgraph job-failed-after-submit [User Submitted Job and Then It Failed]
             oom(User did not request enough memory)
@@ -40,6 +51,8 @@
             installing-with-containers(Can this be installed as a container?)
             system-wide-module(Are they installing something that should be installed as a system wide module)
         end
+
+        click gpu-accelerated-python href "https://services.northwestern.edu/TDNext/Apps/31/Tickets/TicketDet?TicketID=26994" "This takes you to a ticket which had this problem so you can see what was done"
 
         subgraph access-to-licensed-software [User Requesting Access to Licensed Software]
             vasp(VASP)
@@ -56,14 +69,18 @@
         software-installation -.- access-to-licensed-software
 
         assign-xiss(XISS Assignment Group)
-        assign-rcds-staff(RCDS Staff)
+        assign-rcss-staff(RCSS Staff)
+        assign-rds-staff(RDS Staff)
 
         system-wide-module-. Assign To .-> assign-xiss
-        access-to-licensed-software-. Assign To .-> assign-rcds-staff
+        access-to-licensed-software-. Assign To .-> assign-rcss-staff
+        globus-or-data-transfer -. Assign To .-> assign-rds-staff
 
-        click old-fastx-browser-link href "https://services.northwestern.edu/TDNext/Apps/31/Tickets/TicketDet?TicketID=26056" "This takes you to a ticket which had this problem so you can see what was done"
 
-
+        
+        click globus-or-data-transfer href "https://services.northwestern.edu/TDNext/Apps/31/Tickets/TicketDet.aspx?TicketID=2884" "This takes you to a ticket which had this problem so you can see what was done"
+        click assign-rds-staff href "https://services.northwestern.edu/TDNext/Apps/Groups/144" "This tells you the group that you assign"
+        click assign-xiss href "https://services.northwestern.edu/TDNext/Apps/Groups/146" "This tells you the group that you assign"
 
     </pre>
 
